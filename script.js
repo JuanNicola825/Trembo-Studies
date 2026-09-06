@@ -1,17 +1,27 @@
+```javascript
 /* =========================
    DATOS
 ========================= */
 
-let currentLanguage =
-    localStorage.getItem("language") || null;
+/*
+   El idioma NO se carga desde localStorage.
+   Así, cada vez que se abre o recarga la página,
+   el usuario debe elegir nuevamente.
+*/
+
+let currentLanguage = null;
+
 
 let tests =
     JSON.parse(localStorage.getItem("tests")) || [];
 
+
 let trembo =
     Number(localStorage.getItem("trembo")) || 0;
 
+
 let currentDate = new Date();
+
 
 let selectedDate = null;
 
@@ -23,30 +33,146 @@ let selectedDate = null;
 const translations = {
 
     es: {
+
         calendar: "Calendario",
+
         results: "Resultados de las pruebas",
+
         addTest: "Agregar prueba",
+
         subject: "Materia",
+
         notes: "Notas adicionales",
-        average: "Promedio /10"
+
+        average: "Promedio /10",
+
+        deleteLast: "Borrar lo último",
+
+        deleteAll: "Borrar todo",
+
+        pending: "Pendiente",
+
+        done: "Hecha",
+
+        cancelled: "Cancelada",
+
+        date: "Fecha",
+
+        score: "Nota sobre 10",
+
+        earnedPoints: "Puntos obtenidos",
+
+        maxPoints: "Puntos totales",
+
+        status: "Estado",
+
+        january: "Enero",
+
+        firstSelectDay: "Primero seleccioná un día.",
+
+        enterSubject: "Ingresá una materia.",
+
+        noTests: "No hay pruebas para borrar.",
+
+        confirmDelete:
+            "¿Seguro que querés borrar todas las pruebas?"
+
     },
+
 
     en: {
+
         calendar: "Calendar",
+
         results: "Test Results",
+
         addTest: "Add test",
+
         subject: "Subject",
+
         notes: "Additional notes",
-        average: "Average /10"
+
+        average: "Average /10",
+
+        deleteLast: "Delete last",
+
+        deleteAll: "Delete all",
+
+        pending: "Pending",
+
+        done: "Done",
+
+        cancelled: "Cancelled",
+
+        date: "Date",
+
+        score: "Score out of 10",
+
+        earnedPoints: "Points obtained",
+
+        maxPoints: "Total points",
+
+        status: "Status",
+
+        january: "January",
+
+        firstSelectDay: "First select a day.",
+
+        enterSubject: "Enter a subject.",
+
+        noTests: "There are no tests to delete.",
+
+        confirmDelete:
+            "Are you sure you want to delete all tests?"
+
     },
 
+
     he: {
+
         calendar: "לוח שנה",
+
         results: "תוצאות מבחנים",
+
         addTest: "הוסף מבחן",
+
         subject: "מקצוע",
-        notes: "הערות",
-        average: "ממוצע /10"
+
+        notes: "הערות נוספות",
+
+        average: "ממוצע /10",
+
+        deleteLast: "מחק את האחרון",
+
+        deleteAll: "מחק הכול",
+
+        pending: "ממתין",
+
+        done: "הושלם",
+
+        cancelled: "בוטל",
+
+        date: "תאריך",
+
+        score: "ציון מתוך 10",
+
+        earnedPoints: "נקודות שהושגו",
+
+        maxPoints: "סך הנקודות",
+
+        status: "סטטוס",
+
+        january: "ינואר",
+
+        firstSelectDay: "בחר קודם יום.",
+
+        enterSubject: "הכנס מקצוע.",
+
+        noTests: "אין מבחנים למחיקה.",
+
+        confirmDelete:
+            "האם אתה בטוח שברצונך למחוק את כל המבחנים?"
+
     }
 
 };
@@ -60,18 +186,28 @@ function selectLanguage(language) {
 
     currentLanguage = language;
 
+
+    /*
+       Guardamos el idioma solamente como información,
+       pero NO lo usamos para saltar la pantalla
+       de selección al recargar.
+    */
+
     localStorage.setItem(
         "language",
         language
     );
 
-    document.getElementById(
-        "languageScreen"
-    ).classList.add("hidden");
 
-    document.getElementById(
-        "app"
-    ).classList.remove("hidden");
+    document
+        .getElementById("languageScreen")
+        .classList.add("hidden");
+
+
+    document
+        .getElementById("app")
+        .classList.remove("hidden");
+
 
     applyLanguage();
 
@@ -80,6 +216,7 @@ function selectLanguage(language) {
     renderResults();
 
     updateTrembo();
+
 }
 
 
@@ -89,25 +226,62 @@ function selectLanguage(language) {
 
 function applyLanguage() {
 
+    if (!currentLanguage) return;
+
+
     const t =
         translations[currentLanguage];
 
-    document.getElementById(
-        "menuCalendar"
-    ).textContent = t.calendar;
 
-    document.getElementById(
-        "menuResults"
-    ).textContent = t.results;
+    document
+        .getElementById("menuCalendar")
+        .textContent =
+        t.calendar;
 
-    document.getElementById(
-        "addTestText"
-    ).textContent = t.addTest;
 
-    document.getElementById(
-        "averageText"
-    ).textContent = t.average;
+    document
+        .getElementById("menuResults")
+        .textContent =
+        t.results;
 
+
+    document
+        .getElementById("addTestText")
+        .textContent =
+        t.addTest;
+
+
+    document
+        .getElementById("averageText")
+        .textContent =
+        t.average;
+
+
+    /*
+       Cambia los textos de los botones
+       de borrar.
+    */
+
+    const deleteButtons =
+        document.querySelectorAll(
+            ".delete-buttons button"
+        );
+
+
+    if (deleteButtons.length >= 2) {
+
+        deleteButtons[0].textContent =
+            t.deleteLast;
+
+        deleteButtons[1].textContent =
+            t.deleteAll;
+
+    }
+
+
+    /*
+       Hebreo
+    */
 
     if (currentLanguage === "he") {
 
@@ -132,9 +306,11 @@ function showPage(page) {
         .getElementById("calendarPage")
         .classList.add("hidden");
 
+
     document
         .getElementById("resultsPage")
         .classList.add("hidden");
+
 
     document
         .getElementById("dianabolPage")
@@ -147,6 +323,7 @@ function showPage(page) {
             .getElementById("calendarPage")
             .classList.remove("hidden");
 
+
         renderCalendar();
 
     }
@@ -157,6 +334,7 @@ function showPage(page) {
         document
             .getElementById("resultsPage")
             .classList.remove("hidden");
+
 
         renderResults();
 
@@ -183,11 +361,16 @@ function renderCalendar() {
     const calendar =
         document.getElementById("calendar");
 
+
+    if (!calendar) return;
+
+
     calendar.innerHTML = "";
 
 
     const year =
         currentDate.getFullYear();
+
 
     const month =
         currentDate.getMonth();
@@ -210,6 +393,7 @@ function renderCalendar() {
             "Diciembre"
         ],
 
+
         en: [
             "January",
             "February",
@@ -224,6 +408,7 @@ function renderCalendar() {
             "November",
             "December"
         ],
+
 
         he: [
             "ינואר",
@@ -243,17 +428,34 @@ function renderCalendar() {
     };
 
 
-    document.getElementById(
-        "monthTitle"
-    ).textContent =
+    /*
+       Si todavía no se eligió idioma,
+       no intentamos renderizar el calendario.
+    */
+
+    if (!currentLanguage) return;
+
+
+    document
+        .getElementById("monthTitle")
+        .textContent =
         `${monthNames[currentLanguage][month]} ${year}`;
 
 
     const firstDay =
-        new Date(year, month, 1).getDay();
+        new Date(
+            year,
+            month,
+            1
+        ).getDay();
+
 
     const daysInMonth =
-        new Date(year, month + 1, 0).getDate();
+        new Date(
+            year,
+            month + 1,
+            0
+        ).getDate();
 
 
     /*
@@ -271,8 +473,10 @@ function renderCalendar() {
         const empty =
             document.createElement("div");
 
+
         empty.className =
             "calendar-day empty";
+
 
         calendar.appendChild(empty);
 
@@ -291,6 +495,7 @@ function renderCalendar() {
 
         const cell =
             document.createElement("div");
+
 
         cell.className =
             "calendar-day";
@@ -312,11 +517,14 @@ function renderCalendar() {
             const marker =
                 document.createElement("div");
 
+
             marker.className =
                 "test-marker";
 
+
             marker.textContent =
                 test.subject;
+
 
             cell.appendChild(marker);
 
@@ -347,6 +555,7 @@ function changeMonth(amount) {
         currentDate.getMonth() + amount
     );
 
+
     renderCalendar();
 
 }
@@ -359,6 +568,7 @@ function changeMonth(amount) {
 function selectDate(date) {
 
     selectedDate = date;
+
 
     document
         .getElementById("testForm")
@@ -374,6 +584,7 @@ function selectDate(date) {
     document
         .getElementById("subjectInput")
         .value = "";
+
 
     document
         .getElementById("notesInput")
@@ -391,8 +602,10 @@ function addTest() {
     if (!selectedDate) {
 
         alert(
-            "Primero seleccioná un día."
+            translations[currentLanguage]
+                .firstSelectDay
         );
+
 
         return;
 
@@ -416,8 +629,10 @@ function addTest() {
     if (!subject) {
 
         alert(
-            "Ingresá una materia."
+            translations[currentLanguage]
+                .enterSubject
         );
+
 
         return;
 
@@ -442,7 +657,12 @@ function addTest() {
 
         status: "pending",
 
-        rewarded: false
+        /*
+           Guarda exactamente cuánta Trembolona
+           recibió esta prueba.
+        */
+
+        rewardAmount: 0
 
     };
 
@@ -476,6 +696,10 @@ function renderResults() {
             "resultsList"
         );
 
+
+    if (!list) return;
+
+
     list.innerHTML = "";
 
 
@@ -484,17 +708,24 @@ function renderResults() {
         const card =
             document.createElement("div");
 
+
         card.className =
             "result-card";
 
 
         const statusText = {
 
-            pending: "Pendiente",
+            pending:
+                translations[currentLanguage]
+                    .pending,
 
-            done: "Hecha",
+            done:
+                translations[currentLanguage]
+                    .done,
 
-            cancelled: "Cancelada"
+            cancelled:
+                translations[currentLanguage]
+                    .cancelled
 
         };
 
@@ -503,20 +734,27 @@ function renderResults() {
 
             <h2>${test.subject}</h2>
 
+
             <p>
-                <strong>Fecha:</strong>
+                <strong>
+                    ${translations[currentLanguage].date}:
+                </strong>
                 ${test.date}
             </p>
+
 
             <p>
                 ${test.notes || ""}
             </p>
 
+
             <br>
 
+
             <label>
-                Nota sobre 10:
+                ${translations[currentLanguage].score}:
             </label>
+
 
             <input
                 type="number"
@@ -529,8 +767,9 @@ function renderResults() {
 
 
             <label>
-                Puntos obtenidos:
+                ${translations[currentLanguage].earnedPoints}:
             </label>
+
 
             <input
                 type="number"
@@ -541,8 +780,9 @@ function renderResults() {
 
 
             <label>
-                Puntos totales:
+                ${translations[currentLanguage].maxPoints}:
             </label>
+
 
             <input
                 type="number"
@@ -556,8 +796,9 @@ function renderResults() {
 
 
             <label>
-                Estado:
+                ${translations[currentLanguage].status}:
             </label>
+
 
             <select
                 onchange="updateStatus(${test.id}, this.value)"
@@ -567,26 +808,30 @@ function renderResults() {
                     value="pending"
                     ${test.status === "pending" ? "selected" : ""}
                 >
-                    Pendiente
+                    ${translations[currentLanguage].pending}
                 </option>
+
 
                 <option
                     value="done"
                     ${test.status === "done" ? "selected" : ""}
                 >
-                    Hecha
+                    ${translations[currentLanguage].done}
                 </option>
+
 
                 <option
                     value="cancelled"
                     ${test.status === "cancelled" ? "selected" : ""}
                 >
-                    Cancelada
+                    ${translations[currentLanguage].cancelled}
                 </option>
 
             </select>
 
+
             <br><br>
+
 
             <span class="status">
                 ${statusText[test.status]}
@@ -616,6 +861,7 @@ function updateScore(id, value) {
             t => t.id === id
         );
 
+
     if (!test) return;
 
 
@@ -625,9 +871,17 @@ function updateScore(id, value) {
             : Number(value);
 
 
+    /*
+       Recalcula la recompensa.
+       Esto permite cambiar, por ejemplo,
+       de 8 a 10 sin regalar 500 extra.
+    */
+
     processReward(test);
 
+
     saveData();
+
 
     renderResults();
 
@@ -645,6 +899,7 @@ function updatePoints(id, value) {
             t => t.id === id
         );
 
+
     if (!test) return;
 
 
@@ -653,6 +908,7 @@ function updatePoints(id, value) {
 
 
     saveData();
+
 
     calculateAverages();
 
@@ -670,6 +926,7 @@ function updateMaxPoints(id, value) {
             t => t.id === id
         );
 
+
     if (!test) return;
 
 
@@ -678,6 +935,7 @@ function updateMaxPoints(id, value) {
 
 
     saveData();
+
 
     calculateAverages();
 
@@ -695,15 +953,26 @@ function updateStatus(id, status) {
             t => t.id === id
         );
 
+
     if (!test) return;
 
 
     test.status = status;
 
 
+    /*
+       Si pasa de pendiente a hecha,
+       recibe su recompensa.
+
+       Si pasa de hecha a cancelada o pendiente,
+       se elimina la recompensa anterior.
+    */
+
     processReward(test);
 
+
     saveData();
+
 
     renderResults();
 
@@ -739,25 +1008,78 @@ function rewardForScore(score) {
 
 function processReward(test) {
 
+    /*
+       Compatibilidad con pruebas antiguas
+       que todavía tengan "rewarded"
+       en vez de "rewardAmount".
+    */
+
     if (
-        test.status !== "done" ||
-        test.score === null ||
-        test.rewarded
+        typeof test.rewardAmount !== "number"
     ) {
 
-        return;
+        test.rewardAmount =
+            test.rewarded
+                ? rewardForScore(test.score)
+                : 0;
 
     }
 
 
-    const reward =
-        rewardForScore(test.score);
+    let newReward = 0;
 
 
-    trembo += reward;
+    /*
+       Solamente una prueba HECHA
+       y con nota recibe recompensa.
+    */
+
+    if (
+        test.status === "done" &&
+        test.score !== null &&
+        !Number.isNaN(Number(test.score))
+    ) {
+
+        newReward =
+            rewardForScore(
+                Number(test.score)
+            );
+
+    }
 
 
-    test.rewarded = true;
+    /*
+       Calculamos la diferencia entre
+       la recompensa nueva y la anterior.
+    */
+
+    const difference =
+        newReward -
+        test.rewardAmount;
+
+
+    /*
+       Aplicamos solamente la diferencia.
+    */
+
+    trembo += difference;
+
+
+    /*
+       Guardamos la recompensa actual.
+    */
+
+    test.rewardAmount =
+        newReward;
+
+
+    /*
+       Mantenemos "rewarded" por compatibilidad
+       con datos antiguos.
+    */
+
+    test.rewarded =
+        newReward !== 0;
 
 
     saveData();
@@ -768,24 +1090,166 @@ function processReward(test) {
 
 
 /* =========================
+   BORRAR LO ÚLTIMO
+========================= */
+
+function deleteLastTest() {
+
+    if (tests.length === 0) {
+
+        alert(
+            translations[currentLanguage]
+                .noTests
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+       Sacamos la última prueba agregada.
+    */
+
+    const deletedTest =
+        tests[tests.length - 1];
+
+
+    /*
+       Si esa prueba había generado Trembolona,
+       devolvemos/revertimos su recompensa.
+    */
+
+    const rewardToRemove =
+        Number(
+            deletedTest.rewardAmount || 0
+        );
+
+
+    trembo -= rewardToRemove;
+
+
+    /*
+       Eliminamos la prueba.
+    */
+
+    tests.pop();
+
+
+    saveData();
+
+
+    updateTrembo();
+
+
+    renderCalendar();
+
+    renderResults();
+
+}
+
+
+/* =========================
+   BORRAR TODO
+========================= */
+
+function deleteAllTests() {
+
+    if (tests.length === 0) {
+
+        alert(
+            translations[currentLanguage]
+                .noTests
+        );
+
+
+        return;
+
+    }
+
+
+    const confirmDelete =
+        confirm(
+            translations[currentLanguage]
+                .confirmDelete
+        );
+
+
+    if (!confirmDelete) return;
+
+
+    /*
+       Sumamos todas las recompensas
+       que debemos revertir.
+    */
+
+    const totalRewards =
+        tests.reduce(
+            (sum, test) =>
+                sum +
+                Number(test.rewardAmount || 0),
+            0
+        );
+
+
+    trembo -= totalRewards;
+
+
+    /*
+       Eliminamos todas las pruebas.
+    */
+
+    tests = [];
+
+
+    saveData();
+
+
+    updateTrembo();
+
+
+    renderCalendar();
+
+    renderResults();
+
+}
+
+
+/* =========================
    CONTADOR
 ========================= */
 
 function updateTrembo() {
 
-    document
-        .getElementById("tremboAmount")
-        .textContent = trembo;
+    const amount =
+        document.getElementById(
+            "tremboAmount"
+        );
 
 
-    document
-        .getElementById("tremboText")
-        .textContent =
-        currentLanguage === "he"
-            ? "טרמבולונה"
-            : currentLanguage === "en"
-                ? "Trembolona"
+    const text =
+        document.getElementById(
+            "tremboText"
+        );
+
+
+    if (amount) {
+
+        amount.textContent =
+            trembo;
+
+    }
+
+
+    if (text) {
+
+        text.textContent =
+            currentLanguage === "he"
+                ? "טרמבולונה"
                 : "Trembolona";
+
+    }
 
 }
 
@@ -810,20 +1274,25 @@ function calculateAverages() {
             .getElementById("average")
             .textContent = "-";
 
+
         document
             .getElementById("percentage")
             .textContent = "-";
 
+
         document
             .getElementById("totalPoints")
             .textContent = "-";
+
 
         return;
 
     }
 
 
-    /* PROMEDIO SOBRE 10 */
+    /* =========================
+       PROMEDIO SOBRE 10
+    ========================== */
 
     const totalGrades =
         completed.reduce(
@@ -834,7 +1303,8 @@ function calculateAverages() {
 
 
     const average =
-        totalGrades / completed.length;
+        totalGrades /
+        completed.length;
 
 
     document
@@ -843,12 +1313,15 @@ function calculateAverages() {
         average.toFixed(2);
 
 
-    /* PUNTOS */
+    /* =========================
+       PUNTOS
+    ========================== */
 
     const earned =
         completed.reduce(
             (sum, test) =>
-                sum + Number(test.points || 0),
+                sum +
+                Number(test.points || 0),
             0
         );
 
@@ -856,7 +1329,8 @@ function calculateAverages() {
     const maximum =
         completed.reduce(
             (sum, test) =>
-                sum + Number(test.maxPoints || 0),
+                sum +
+                Number(test.maxPoints || 0),
             0
         );
 
@@ -867,7 +1341,9 @@ function calculateAverages() {
         `${earned} / ${maximum}`;
 
 
-    /* PORCENTAJE */
+    /* =========================
+       PORCENTAJE
+    ========================== */
 
     if (maximum > 0) {
 
@@ -916,28 +1392,38 @@ function saveData() {
    CARGAR APLICACIÓN
 ========================= */
 
+/*
+   IMPORTANTE:
+
+   Ya NO usamos el idioma guardado para entrar
+   automáticamente a la aplicación.
+
+   Cada vez que se abre o recarga la página:
+
+   1. Aparece la pantalla de idioma.
+   2. Se oculta la aplicación.
+   3. El usuario elige nuevamente.
+*/
+
 window.onload = function () {
 
-    if (currentLanguage) {
-
-        document
-            .getElementById("languageScreen")
-            .classList.add("hidden");
+    currentLanguage = null;
 
 
-        document
-            .getElementById("app")
-            .classList.remove("hidden");
+    document
+        .getElementById("languageScreen")
+        .classList.remove("hidden");
 
 
-        applyLanguage();
+    document
+        .getElementById("app")
+        .classList.add("hidden");
 
-        renderCalendar();
 
-        renderResults();
-
-        updateTrembo();
-
-    }
+    /*
+       El saldo y las pruebas siguen existiendo
+       porque están guardados en localStorage.
+    */
 
 };
+```
