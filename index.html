@@ -1,3 +1,5 @@
+
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -23,6 +25,7 @@
             <p>Elegí tu idioma / Choose your language</p>
 
             <div class="language-buttons">
+
                 <button onclick="selectLanguage('es')">
                     Español
                 </button>
@@ -34,15 +37,23 @@
                 <button onclick="selectLanguage('he')">
                     עברית
                 </button>
+
             </div>
 
         </div>
 
-      <img
-    src="buenas123.webp"
-    alt="Buenas"
-    class="main-image"
->
+
+        <img
+            src="buenas123.webp"
+            alt="Buenas"
+            class="main-image"
+        >
+
+
+        <!-- COPYRIGHT -->
+        <footer class="copyright">
+            © Creado por Juan Ignacio Nicola
+        </footer>
 
     </section>
 
@@ -54,8 +65,13 @@
 
         <!-- CONTADOR DE TREMBOLONA -->
         <div class="trembo-counter">
+
             <span id="tremboAmount">0</span>
-            <span id="tremboText">Trembolona</span>
+
+            <span id="tremboText">
+                Trembolona
+            </span>
+
         </div>
 
 
@@ -65,14 +81,18 @@
             <h2>Trembo Studies</h2>
 
             <button onclick="showPage('calendar')">
-                <span id="menuCalendar">Calendario</span>
+                <span id="menuCalendar">
+                    Calendario
+                </span>
             </button>
+
 
             <button onclick="showPage('results')">
                 <span id="menuResults">
                     Resultados de las pruebas
                 </span>
             </button>
+
 
             <button onclick="showPage('dianabol')">
                 Dianabol
@@ -93,6 +113,21 @@
                 <h1 id="calendarTitle">
                     Calendario
                 </h1>
+
+
+                <!-- BOTONES PARA BORRAR -->
+                <div class="delete-buttons">
+
+                    <button onclick="deleteLastTest()">
+                        Borrar lo último
+                    </button>
+
+                    <button onclick="deleteAllTests()">
+                        Borrar todo
+                    </button>
+
+                </div>
+
 
                 <div class="calendar-header">
 
@@ -122,6 +157,7 @@
                         Agregar prueba
                     </h2>
 
+
                     <label>
                         Materia
                     </label>
@@ -144,12 +180,20 @@
 
 
                     <button onclick="addTest()">
+
                         <span id="addTestText">
                             Agregar prueba
                         </span>
+
                     </button>
 
                 </div>
+
+
+                <!-- COPYRIGHT -->
+                <footer class="copyright">
+                    © Creado por Juan Ignacio Nicola
+                </footer>
 
             </section>
 
@@ -166,6 +210,20 @@
                 <h1 id="resultsTitle">
                     Resultados de las pruebas
                 </h1>
+
+
+                <!-- BOTONES PARA BORRAR -->
+                <div class="delete-buttons">
+
+                    <button onclick="deleteLastTest()">
+                        Borrar lo último
+                    </button>
+
+                    <button onclick="deleteAllTests()">
+                        Borrar todo
+                    </button>
+
+                </div>
 
 
                 <!-- ESTADÍSTICAS -->
@@ -215,6 +273,12 @@
                 <!-- LISTA DE PRUEBAS -->
                 <div id="resultsList"></div>
 
+
+                <!-- COPYRIGHT -->
+                <footer class="copyright">
+                    © Creado por Juan Ignacio Nicola
+                </footer>
+
             </section>
 
 
@@ -227,7 +291,10 @@
                 class="page hidden"
             >
 
-                <h1>Dianabol</h1>
+                <h1>
+                    Dianabol
+                </h1>
+
 
                 <p>
                     Accesos rápidos:
@@ -301,6 +368,12 @@
 
                 </div>
 
+
+                <!-- COPYRIGHT -->
+                <footer class="copyright">
+                    © Creado por Juan Ignacio Nicola
+                </footer>
+
             </section>
 
         </main>
@@ -313,3 +386,4 @@
 
 </body>
 </html>
+```
