@@ -1,13 +1,11 @@
-
-```html
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trembo Studies</title>
 
-    <!-- Conecta el diseño -->
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -16,25 +14,30 @@
     <!-- =========================
          PANTALLA DE IDIOMA
     ========================== -->
+
     <section id="languageScreen" class="language-screen">
 
         <div class="language-box">
 
-            <h1 id="languageTitle">Trembo Studies</h1>
+            <h1 id="languageTitle">
+                Trembo Studies
+            </h1>
 
-            <p>Elegí tu idioma / Choose your language</p>
+            <p>
+                Elegí tu idioma / Choose your language
+            </p>
 
             <div class="language-buttons">
 
-                <button onclick="selectLanguage('es')">
+                <button id="spanishButton">
                     Español
                 </button>
 
-                <button onclick="selectLanguage('en')">
+                <button id="englishButton">
                     English
                 </button>
 
-                <button onclick="selectLanguage('he')">
+                <button id="hebrewButton">
                     עברית
                 </button>
 
@@ -50,7 +53,6 @@
         >
 
 
-        <!-- COPYRIGHT -->
         <footer class="copyright">
             © Creado por Juan Ignacio Nicola
         </footer>
@@ -61,12 +63,17 @@
     <!-- =========================
          APLICACIÓN
     ========================== -->
+
     <section id="app" class="app hidden">
 
-        <!-- CONTADOR DE TREMBOLONA -->
+
+        <!-- CONTADOR -->
+
         <div class="trembo-counter">
 
-            <span id="tremboAmount">0</span>
+            <span id="tremboAmount">
+                0
+            </span>
 
             <span id="tremboText">
                 Trembolona
@@ -75,54 +82,66 @@
         </div>
 
 
-        <!-- MENÚ LATERAL -->
+        <!-- =========================
+             MENÚ
+        ========================== -->
+
         <aside class="sidebar">
 
-            <h2>Trembo Studies</h2>
+            <h2>
+                Trembo Studies
+            </h2>
 
-            <button onclick="showPage('calendar')">
+
+            <button id="calendarButton">
                 <span id="menuCalendar">
                     Calendario
                 </span>
             </button>
 
 
-            <button onclick="showPage('results')">
+            <button id="resultsButton">
                 <span id="menuResults">
                     Resultados de las pruebas
                 </span>
             </button>
 
 
-            <button onclick="showPage('dianabol')">
+            <button id="dianabolButton">
                 Dianabol
             </button>
 
         </aside>
 
 
-        <!-- CONTENIDO PRINCIPAL -->
+        <!-- =========================
+             CONTENIDO
+        ========================== -->
+
         <main class="main-content">
 
 
             <!-- =========================
                  CALENDARIO
             ========================== -->
-            <section id="calendarPage" class="page">
+
+            <section
+                id="calendarPage"
+                class="page"
+            >
 
                 <h1 id="calendarTitle">
                     Calendario
                 </h1>
 
 
-                <!-- BOTONES PARA BORRAR -->
                 <div class="delete-buttons">
 
-                    <button onclick="deleteLastTest()">
+                    <button id="deleteLastButton">
                         Borrar lo último
                     </button>
 
-                    <button onclick="deleteAllTests()">
+                    <button id="deleteAllButton">
                         Borrar todo
                     </button>
 
@@ -131,23 +150,27 @@
 
                 <div class="calendar-header">
 
-                    <button onclick="changeMonth(-1)">
+                    <button id="previousMonthButton">
                         ←
                     </button>
 
                     <h2 id="monthTitle"></h2>
 
-                    <button onclick="changeMonth(1)">
+                    <button id="nextMonthButton">
                         →
                     </button>
 
                 </div>
 
 
-                <div id="calendar" class="calendar"></div>
+                <div
+                    id="calendar"
+                    class="calendar"
+                ></div>
 
 
                 <!-- FORMULARIO -->
+
                 <div
                     id="testForm"
                     class="test-form hidden"
@@ -158,7 +181,7 @@
                     </h2>
 
 
-                    <label>
+                    <label id="subjectLabel">
                         Materia
                     </label>
 
@@ -169,7 +192,7 @@
                     >
 
 
-                    <label>
+                    <label id="notesLabel">
                         Notas adicionales
                     </label>
 
@@ -179,7 +202,7 @@
                     ></textarea>
 
 
-                    <button onclick="addTest()">
+                    <button id="addTestButton">
 
                         <span id="addTestText">
                             Agregar prueba
@@ -190,7 +213,6 @@
                 </div>
 
 
-                <!-- COPYRIGHT -->
                 <footer class="copyright">
                     © Creado por Juan Ignacio Nicola
                 </footer>
@@ -202,6 +224,7 @@
             <!-- =========================
                  RESULTADOS
             ========================== -->
+
             <section
                 id="resultsPage"
                 class="page hidden"
@@ -212,21 +235,19 @@
                 </h1>
 
 
-                <!-- BOTONES PARA BORRAR -->
                 <div class="delete-buttons">
 
-                    <button onclick="deleteLastTest()">
+                    <button id="deleteLastButtonResults">
                         Borrar lo último
                     </button>
 
-                    <button onclick="deleteAllTests()">
+                    <button id="deleteAllButtonResults">
                         Borrar todo
                     </button>
 
                 </div>
 
 
-                <!-- ESTADÍSTICAS -->
                 <div class="stats">
 
                     <div class="stat-card">
@@ -244,7 +265,7 @@
 
                     <div class="stat-card">
 
-                        <h3>
+                        <h3 id="percentageText">
                             Porcentaje
                         </h3>
 
@@ -257,7 +278,7 @@
 
                     <div class="stat-card">
 
-                        <h3>
+                        <h3 id="pointsText">
                             Puntos
                         </h3>
 
@@ -270,11 +291,9 @@
                 </div>
 
 
-                <!-- LISTA DE PRUEBAS -->
                 <div id="resultsList"></div>
 
 
-                <!-- COPYRIGHT -->
                 <footer class="copyright">
                     © Creado por Juan Ignacio Nicola
                 </footer>
@@ -286,17 +305,18 @@
             <!-- =========================
                  DIANABOL
             ========================== -->
+
             <section
                 id="dianabolPage"
                 class="page hidden"
             >
 
-                <h1>
+                <h1 id="dianabolTitle">
                     Dianabol
                 </h1>
 
 
-                <p>
+                <p id="quickAccessText">
                     Accesos rápidos:
                 </p>
 
@@ -310,14 +330,12 @@
                         ChatGPT
                     </a>
 
-
                     <a
                         href="https://gemini.google.com"
                         target="_blank"
                     >
                         Gemini
                     </a>
-
 
                     <a
                         href="https://claude.ai"
@@ -326,14 +344,12 @@
                         Claude
                     </a>
 
-
                     <a
                         href="https://www.google.com"
                         target="_blank"
                     >
                         Google
                     </a>
-
 
                     <a
                         href="https://classroom.google.com"
@@ -342,7 +358,6 @@
                         Google Classroom
                     </a>
 
-
                     <a
                         href="https://docs.google.com"
                         target="_blank"
@@ -350,14 +365,12 @@
                         Google Docs
                     </a>
 
-
                     <a
                         href="https://mail.google.com"
                         target="_blank"
                     >
                         Gmail
                     </a>
-
 
                     <a
                         href="https://parazero.com"
@@ -369,7 +382,6 @@
                 </div>
 
 
-                <!-- COPYRIGHT -->
                 <footer class="copyright">
                     © Creado por Juan Ignacio Nicola
                 </footer>
@@ -381,9 +393,10 @@
     </section>
 
 
-    <!-- Conecta la programación -->
+    <!-- JAVASCRIPT -->
+
     <script src="script.js"></script>
 
 </body>
 </html>
-```
+
